@@ -7,13 +7,13 @@ from database.models import Event
 
 class EventService():
 
-    def all_events(self, db: Session):
+    def all_events(self, db):
         return db.query(Event).all()
 
-    def get_by_id(self, db: Session, id: int) -> Optional[Event]:
+    def get_by_id(self, db, id: int) -> Optional[Event]:
         return db.query(Event).filter(Event.id == id).first()
 
-    def create(self, db: Session, data) -> Optional[Event]:
+    def create(self, db, data) -> Optional[Event]:
         db_obj = Event(
             **data
         )

@@ -9,22 +9,22 @@ from security import generate_token
 
 class UserService():
 
-    def all_users(self, db: Session):
+    def all_users(self, db):
         return db.query(User).all()
 
-    def user_events(self, db: Session):
-        return db.query(User).filter()
+    def user_events(self, db):
+        return db.engine(User).filter()
 
-    def get_by_id(self, db: Session, id: int) -> Optional[User]:
+    def get_by_id(self, db, id: int) -> Optional[User]:
         return db.query(User).filter(User.id == id).first()
 
-    def get_by_token(self, db: Session, token: str) -> Optional[User]:
+    def get_by_token(self, db, token: str) -> Optional[User]:
         return db.query(User).filter(User.token == token).first()
 
-    def get_by_name(self, db: Session, name: str) -> Optional[User]:
+    def get_by_name(self, db, name: str) -> Optional[User]:
         return db.query(User).filter(User.name == name).first()
 
-    def create(self, db: Session, data) -> Optional[User]:
+    def create(self, db, data) -> Optional[User]:
         token = generate_token(data['name']+data['surname'])
         data['token'] = token
         db_obj = User(
