@@ -15,9 +15,11 @@ async def user_loader(token: str):
         return None
 
 
-application = web.Application(middlewares=[token_auth_middleware(
-    user_loader=user_loader,
-    exclude_routes=('/user/create', '/user/login')
-)])
+application = web.Application(
+    # middlewares=[token_auth_middleware(
+    # user_loader=user_loader,
+    # exclude_routes=('/user/create', '/user/login')
+# )]
+)
 setup_routes(application)
 web.run_app(application, port=port)
