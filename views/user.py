@@ -1,4 +1,5 @@
 from aiohttp import web
+from sqlalchemy import text
 
 from database.config import session, engine
 from service.user import user_service
@@ -42,7 +43,16 @@ async def all_user_list(request: web.Request):
 
 
 async def user_list(request: web.Request):
-    print('f')
-    sql = engine.execute('SELECT * FROM user')
-    print(sql)
+    sql = session.execute(text('''SELECT 
+    u.name,
+    e.title
+FROM event e
+INNER JOIN coupon c on c.event_id=e.id
+INNER JOIN user u on u.id=c.user_id
+WHERE u.id in (
+    SELECT id FROM user
+    WHERE (SELECT count(1) FROM coupon WHERE user_id=user.id) > 3
+)'''))
+    for u in sql:
+        print(type(u))
     return web.json_response({'d':'d'})
