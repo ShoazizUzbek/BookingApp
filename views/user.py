@@ -1,7 +1,8 @@
 from aiohttp import web
-from sqlalchemy import text
+from sqlalchemy import text, func
 
 from database.config import session
+from database.models import Coupon
 from service.user import user_service
 from config.validator import UserCreate
 
@@ -33,20 +34,25 @@ async def all_user_list(request: web.Request):
 
 
 async def user_list(request: web.Request):
-    sql = session.execute(
+    """
+    User list which have pacticipated at least in 3 events
+    """
+    users = session.execute(
         text(
             """SELECT 
-    u.name,
-    e.title
-FROM event e
-INNER JOIN coupon c on c.event_id=e.id
-INNER JOIN user u on u.id=c.user_id
-WHERE u.id in (
-    SELECT id FROM user
-    WHERE (SELECT count(1) FROM coupon WHERE user_id=user.id) > 3
-)"""
+            u.surname,
+            u.name,
+            e.title
+        FROM "user" u
+        INNER JOIN coupon c on c.user_id=u.id
+        INNER JOIN "event" e on e.id=c.event_id
+        WHERE u.id in (
+            SELECT id FROM "user" u1
+            WHERE (SELECT count(1) FROM coupon WHERE user_id=u1.id) > 3
+        )"""
         )
     )
-    for u in sql:
-        print(type(u))
-    return web.json_response({"d": "d"})
+    resultset = []
+    for row in users:
+        resultset.append(dict(row))
+    return web.json_response(resultset)

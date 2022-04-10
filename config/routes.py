@@ -1,5 +1,5 @@
 from views.coupon import create_coupon
-from views.event import event_create, event_list
+from views.event import event_create, all_event_list, event_list_by_filter
 from views.user import user_create, user_login, all_user_list, user_list
 
 
@@ -13,6 +13,7 @@ def setup_routes(app):
     )  # person list which participated at least in 3 events
 
     app.router.add_post("/event/create", event_create)
-    app.router.add_get("/event/list", event_list)
+    app.router.add_get("/all-event/list", all_event_list)
+    app.router.add_post("/event/list", event_list_by_filter)
 
     app.router.add_post("/coupon/create", create_coupon)

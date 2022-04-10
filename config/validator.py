@@ -19,5 +19,10 @@ class EventData(BaseModel):
     price: int
 
 
+class EventFilter(BaseModel):
+    start: int
+    end: int
+
+
 class CouponData(BaseModel):
     event_id: int

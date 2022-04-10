@@ -11,6 +11,12 @@ def is_exclude(request, exclude):
     return False
 
 
+"""
+Bear Token Authorization
+ex: {'Authorization' : 'Bearer dkjhkujhrkfjrkvrnvl'}
+"""
+
+
 def token_auth_middleware(
     user_loader: Callable,
     request_property: str = "user",
@@ -22,7 +28,7 @@ def token_auth_middleware(
         if is_exclude(request, exclude_routes) or request.method in exclude_methods:
             return await handler(request)
         try:
-            token = request.headers["Authorization"]
+            scheme, token = request.headers["Authorization"].strip().split(" ")
         except KeyError:
             raise web.HTTPUnauthorized(
                 reason="Missing authorization header",
@@ -33,7 +39,6 @@ def token_auth_middleware(
             )
 
         user = await user_loader(token)
-
         if user:
             request[request_property] = user
         else:
