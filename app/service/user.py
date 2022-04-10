@@ -1,6 +1,5 @@
 from typing import Optional
 
-from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
 from app.database.models import User
@@ -8,10 +7,13 @@ from app.security import generate_token
 
 
 
-class UserService(BaseModel):
+class UserService():
 
-    def all_user(self, db: Session):
+    def all_users(self, db: Session):
         return db.query(User).all()
+
+    def user_events(self, db: Session):
+        return db.query(User).filter()
 
     def get_by_id(self, db: Session, id: int) -> Optional[User]:
         return db.query(User).filter(User.id == id).first()

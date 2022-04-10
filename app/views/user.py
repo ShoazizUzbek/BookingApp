@@ -27,8 +27,20 @@ async def user_login(request: web.Request):
         {'token': user.to_dict()}
     )
 
+async def all_user_list(request: web.Request):
+    users = user_service.all_users(session)
+    data = []
+    for user in users:
+        data.append({
+            'id': user.id,
+            'name': user.name,
+            'surname': user.surname
+        })
+    return web.json_response(data)
+
+
 async def user_list(request: web.Request):
-    users = user_service.all_user(session)
+    users = user_service.user_events(session)
     data = []
     for user in users:
         data.append({

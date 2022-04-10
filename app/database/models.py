@@ -1,4 +1,6 @@
-from sqlalchemy import Column, Integer, String, Date, ForeignKey
+import datetime
+
+from sqlalchemy import Column, Integer, String, Date, ForeignKey, DateTime
 
 from app.database.config import Base
 
@@ -38,7 +40,17 @@ class Event(Base):
     title = Column(String(155), nullable=False,)
     description = Column(String(255), nullable=False,)
     price = Column(Integer, nullable=False,)
-    date = Column(Date, nullable=False,)
+    date = Column(DateTime(timezone=True), default=datetime.datetime.now(), nullable=False,)
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'remain': self.remain,
+            'title': self.title,
+            'description': self.description,
+            'price': self.price,
+            'date': str(self.date),
+        }
 
 
 class Coupon(Base):
