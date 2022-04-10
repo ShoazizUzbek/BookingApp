@@ -6,7 +6,6 @@ __pycache__/
 .idea/
 README.md
 .env
-alembic/versions/
 
 
 
