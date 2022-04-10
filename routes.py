@@ -1,6 +1,6 @@
-from app.views.coupon import create_coupon
-from app.views.event import event_create, event_list
-from app.views.user import user_create, user_login, all_user_list
+from views.coupon import create_coupon
+from views.event import event_create, event_list
+from views.user import user_create, user_login, all_user_list
 
 
 def setup_routes(app):

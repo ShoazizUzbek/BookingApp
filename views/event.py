@@ -1,8 +1,8 @@
 from aiohttp import web
 
-from app.database.config import  session
-from app.service.event import event_service
-from app.validator import EventData
+from database.config import session
+from service.event import event_service
+from validator import EventData
 
 
 async def event_create(request: web.Request):

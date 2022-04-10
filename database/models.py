@@ -1,8 +1,8 @@
 import datetime
 
-from sqlalchemy import Column, Integer, String, Date, ForeignKey, DateTime
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
 
-from app.database.config import Base
+from database.config import Base
 
 
 class User(Base):

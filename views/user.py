@@ -1,8 +1,8 @@
 from aiohttp import web
 
-from app.database.config import  session
-from app.service.user import user_service
-from app.validator import UserCreate
+from database.config import session
+from service.user import user_service
+from validator import UserCreate
 
 
 async def user_create(request: web.Request):

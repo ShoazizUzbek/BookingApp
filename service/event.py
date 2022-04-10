@@ -2,8 +2,7 @@ from typing import Optional
 
 from sqlalchemy.orm import Session
 
-from app.database.models import  Event
-
+from database.models import Event
 
 
 class EventService():

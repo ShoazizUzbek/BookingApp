@@ -2,8 +2,8 @@ from typing import Optional
 
 from sqlalchemy.orm import Session
 
-from app.database.models import User
-from app.security import generate_token
+from database.models import User
+from security import generate_token
 
 
 

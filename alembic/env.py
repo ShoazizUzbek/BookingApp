@@ -5,8 +5,8 @@ from sqlalchemy import pool
 
 from alembic import context
 
-from app import settings
-from app.database.models import Base
+import settings
+from database import Base
 
 config = context.config
 

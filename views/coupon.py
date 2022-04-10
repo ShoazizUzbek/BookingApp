@@ -1,8 +1,8 @@
 from aiohttp import web
 
-from app.database.config import session
-from app.service.coupon import coupon_service
-from app.validator import CouponData
+from database.config import session
+from service.coupon import coupon_service
+from validator import CouponData
 
 
 async def create_coupon(request: web.Request):

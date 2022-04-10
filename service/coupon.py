@@ -2,8 +2,7 @@ import uuid
 
 from sqlalchemy.orm import Session
 
-from app.database.models import  Coupon
-
+from database.models import Coupon
 
 
 class EventService():
