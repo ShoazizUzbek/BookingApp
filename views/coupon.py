@@ -12,5 +12,6 @@ async def create_coupon(request: web.Request):
     try:
         coupon = coupon_service.create(session, data_validated["event_id"], user.id)
     except Exception:
+        session.close()
         return web.json_response({"error": "Duplicated enrolling event"}, status=400)
     return web.json_response({"coupon": coupon.hash})

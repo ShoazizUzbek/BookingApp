@@ -13,6 +13,7 @@ async def user_create(request: web.Request):
     try:
         user = user_service.create(session, data_validated)
     except Exception as ex:
+        session.close()
         return web.json_response({"error": str(ex)}, status=400)
     return web.json_response({"user": user.to_dict()})
 
