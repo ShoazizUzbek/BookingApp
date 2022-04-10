@@ -1,14 +1,10 @@
 from typing import Optional
 
-from sqlalchemy.orm import Session
-
 from database.models import User
-from security import generate_token
+from config.security import generate_token
 
 
-
-class UserService():
-
+class UserService:
     def all_users(self, db):
         return db.query(User).all()
 
@@ -25,14 +21,13 @@ class UserService():
         return db.query(User).filter(User.name == name).first()
 
     def create(self, db, data) -> Optional[User]:
-        token = generate_token(data['name']+data['surname'])
-        data['token'] = token
-        db_obj = User(
-            **data
-        )
+        token = generate_token(data["name"] + data["surname"])
+        data["token"] = token
+        db_obj = User(**data)
         db.add(db_obj)
         db.commit()
         db.refresh(db_obj)
         return db_obj
+
 
 user_service = UserService()

@@ -1,10 +1,10 @@
 from aiohttp import web
 
 from database.config import session
-from middleware import token_auth_middleware
-from routes import setup_routes
+from config.middleware import token_auth_middleware
+from config.routes import setup_routes
 from service.user import user_service
-from settings import port
+from config.settings import port
 
 
 async def user_loader(token: str):
