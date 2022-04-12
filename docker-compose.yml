@@ -7,8 +7,8 @@ services:
       - "25432:5432"
     environment:
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=131313ali
-      - POSTGRES_DB=test_app2_db
+      - POSTGRES_PASSWORD=my_password
+      - POSTGRES_DB=app
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
@@ -28,10 +28,10 @@ services:
       - "8000:8000"
     environment:
       - PORT=8000
-      - DB_NAME=test_app2_db
+      - DB_NAME=app
       - DB_USER=postgres
-      - DB_PASSWORD=131313ali
-      - DB_HOST=postgres
+      - DB_PASSWORD=my_password
+      - DB_HOST=db_service
       - DB_PORT=5432
     command: bash -c "python3 -m alembic upgrade head && python3 main.py"
     depends_on:
